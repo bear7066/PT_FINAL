@@ -32,8 +32,7 @@ async def login_user(request: userReq, response: Response):
         raise HTTPException(status_code=401, detail="Invalid password")
     
     session_id = createSessionId()
-    
-
+    await insertNewSession(user_id=user.pk, session_id=session_id)
     response.set_cookie(key="session_id", value=session_id, httponly=True)
 
     return userRes(status=userRes.Status.SUCCESS, message="Login successful")

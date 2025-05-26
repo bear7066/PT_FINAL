@@ -9,3 +9,5 @@ async def initRedis():
     logging.info("connecting to redis")
     await ensureSuperAdmin()
     
+def getRedisclient():
+    return get_redis_connection()

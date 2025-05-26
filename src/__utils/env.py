@@ -15,6 +15,7 @@ class Env(BaseSettings):
     redis_om_url: str
     auth_secret_key: str
     superadmin_password: str
+    session_expire_seconds: int
     model_config = SettingsConfigDict(env_file=".env")
 
 
