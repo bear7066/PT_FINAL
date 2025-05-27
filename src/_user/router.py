@@ -21,7 +21,6 @@ async def register_user(request: userReq):
         status=userRes.Status.SUCCESS, message="User registered successfully"
     )
 
-
 def ua_hash(ua: str) -> str:
     return sha256(ua.encode()).hexdigest()
 
@@ -59,13 +58,11 @@ async def login_user(request: userReq, response: Response, fastapi_request: Requ
 
     # 寫入 Redis
     await redis_service.redis.hset(session_id, mapping=session_data)
-
-    # 設置 cookie
     response.set_cookie(key="session_id", value=session_id, httponly=True)
 
     return userRes(status=userRes.Status.SUCCESS, message="Login successful")
 
 
-@router.get("/test/mfa")
+@router.get("/mfa")
 async def test_mfa():
     return {"msg": "you passed session guard"}
