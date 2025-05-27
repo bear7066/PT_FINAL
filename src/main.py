@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from src.__utils.env import env
 from src.redis_untils.service import initRedis
 from src._user.router import router as userRouter
+from src._session.middleware import SessionGuard
 
 
 @asynccontextmanager
@@ -20,7 +21,7 @@ async def lifespan(app: FastAPI):
         logging.debug("Exiting Lifespan")
 
 app = FastAPI(lifespan=lifespan)
-
+app.add_middleware(SessionGuard)
 app.include_router(userRouter)
 
 if __name__ == "__main__":

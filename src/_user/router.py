@@ -36,3 +36,8 @@ async def login_user(request: userReq, response: Response):
     response.set_cookie(key="session_id", value=session_id, httponly=True)
 
     return userRes(status=userRes.Status.SUCCESS, message="Login successful")
+
+
+@router.get("/api/test/mfa")
+async def test_mfa():
+    return {"msg": "you passed session guard"}
