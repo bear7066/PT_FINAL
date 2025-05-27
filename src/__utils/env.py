@@ -5,11 +5,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 __all__ = ["env"]
 
-type LogLevel = Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+# type LogLevel = Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
 
 # 別刪，python 3.10 可用
-# from typing import Literal
-# LogLevel = Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+from typing import Literal
+LogLevel = Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
 
 
 class Env(BaseSettings):

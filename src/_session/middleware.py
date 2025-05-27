@@ -48,12 +48,26 @@ def score_request(session: dict, request: dict) -> int:
 
     return risk
 
+ALLOWED_PATHS = [
+    "/api/user/login",
+    "/api/user/register"
+]
+
 # ------------ Middleware ------------
 class SessionGuard(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
+        # 讓 register, login 通過
+        if request.url.path in ALLOWED_PATHS:
+            return await call_next(request)
+        
         sid = request.cookies.get("session_id")
         if not sid:
-            return await call_next(request)
+            logging.warning("[SessionGuard] Missing session_id cookie.")
+            return Response(
+                status_code=401,
+                content='{"detail":"Missing session_id cookie."}',
+                media_type="application/json"
+            )
 
         try:
             logging.debug(f"[SessionGuard] Checking session {sid} from IP {request.client.host}")
