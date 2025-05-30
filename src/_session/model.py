@@ -1,8 +1,13 @@
-from redis_om import HashModel, get_redis_connection
-from datetime import datetime, timedelta
+from redis_om import JsonModel
+from typing import Optional
+from datetime import datetime
 
-class Session(HashModel):
-    session_id: str
+
+class Session(JsonModel):
+    pk: str
     user_id: str
-    expires_at: datetime
-
+    ua_hash: Optional[str]
+    subnet: Optional[str]
+    device_fp_hash: Optional[str]
+    last_request_time: Optional[datetime]
+    expires_at: Optional[datetime]

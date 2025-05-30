@@ -3,7 +3,7 @@ from .schemas import userReq
 import bcrypt
 from src.__utils.env import env
 import logging
-
+from redis_om.model.model import NotFoundError
 
 async def isExisted(usermail: str):
     return await User.isExisted(usermail=usermail)
@@ -35,7 +35,10 @@ async def ensureSuperAdmin():
 
 
 def getUserByMail(usermail: str):
-    return User.find(User.usermail == usermail).first()
+    try:
+        return User.find(User.usermail == usermail).first()
+    except NotFoundError:
+        return None
 
 
 def verifyPassword(plain: str, hashed: str) -> bool:

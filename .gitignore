@@ -61,3 +61,5 @@ venv/
 /docker-compose.env
 
 /log
+
+test.txt
