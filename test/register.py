@@ -5,7 +5,7 @@ import os
 
 load_dotenv()
 
-BASE_URL = f"http://localhost:{os.getenv("PORT")}"
+BASE_URL = f"http://localhost:8000"
 test_user = {
     "username": "testuser1",
     "usermail": "testuser1@mail.com",
