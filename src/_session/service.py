@@ -52,7 +52,9 @@ def random_http_error():
     raise HTTPException(status_code=status, detail="Unexpected error occurred.")
 
 
-async def validate_session_guard(session_id: str, fastapi_request: Request):
+async def validate_session_guard(
+    session_id: str, fastapi_request: Request, loginFlag: bool
+):
     redis = getRedisclient()
 
     session: Session = Session.get(session_id)
@@ -71,7 +73,7 @@ async def validate_session_guard(session_id: str, fastapi_request: Request):
         raise random_http_error()
     last_time = session.last_request_time
 
-    if (current_time - last_time).total_seconds() < 1:
+    if (current_time - last_time).total_seconds() < 1 and not loginFlag:
         raise random_http_error()
 
     session.last_request_time = current_time.isoformat()

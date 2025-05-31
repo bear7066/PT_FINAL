@@ -39,8 +39,19 @@ async def login_user(request: userReq, response: Response, fastapi_request: Requ
     return userRes(status=userRes.Status.SUCCESS, message="Login successful")
 
 
+@router.get("/check")
+async def check_login(fastapi_request: Request):
+    session_id = fastapi_request.cookies.get("session_id")
+    await validate_session_guard(
+        session_id=session_id, fastapi_request=fastapi_request, loginFlag=True
+    )
+    return {"msg": "you passed session guard"}
+
+
 @router.get("/mfa")
 async def test_mfa(fastapi_request: Request):
     session_id = fastapi_request.cookies.get("session_id")
-    await validate_session_guard(session_id=session_id, fastapi_request=fastapi_request)
+    await validate_session_guard(
+        session_id=session_id, fastapi_request=fastapi_request, loginFlag=False
+    )
     return {"msg": "you passed session guard"}

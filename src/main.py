@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from src.__utils.env import env
 from src.redis_untils.service import initRedis
 from src._user.router import router as userRouter
+from src._data.router import router as dataRouter
 from src.__utils.middleware import SessionGuard
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -33,6 +34,8 @@ app.add_middleware(
 )
 app.add_middleware(SessionGuard)
 app.include_router(userRouter)
+app.include_router(dataRouter)
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=env.port)

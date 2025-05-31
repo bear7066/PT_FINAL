@@ -44,7 +44,9 @@ export default function LoginPage() {
 
             if (res.ok) {
                 setMessage("✅ Login successful!");
-                router.push("/"); // ✅ 登入成功導向首頁
+                setTimeout(() => {
+                    router.push("/");
+                }, 500);
             } else {
                 setMessage(`❌ ${data.detail || "Login failed."}`);
             }
@@ -109,6 +111,18 @@ export default function LoginPage() {
                 </button>
 
                 <p className="mt-4 text-sm text-red-500">{message}</p>
+
+                {/* 新增的轉跳到註冊連結 */}
+                <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-300">
+                    No account?
+                    <button
+                        type="button"
+                        onClick={() => router.push("/signup")}
+                        className="ml-1 text-blue-600 hover:underline dark:text-blue-400"
+                    >
+                        register
+                    </button>
+                </p>
             </form>
         </div>
     );

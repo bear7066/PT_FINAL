@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -47,6 +49,9 @@ export default function SignupPage() {
 
             if (res.ok) {
                 setMessage("✅ Registered successfully!");
+                setTimeout(() => {
+                    router.push("/login");
+                }, 1000);
             } else {
                 setMessage(`❌ ${data.detail || "Registration failed."}`);
             }
