@@ -13,7 +13,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/
 lib64/
 parts/
 sdist/
@@ -61,3 +61,5 @@ venv/
 /docker-compose.env
 
 /log
+
+test.txt
